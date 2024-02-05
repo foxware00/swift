@@ -1,5 +1,5 @@
 # Exclude checkout directories for common package managers
---exclude Carthage,Pods,.build
+--exclude Pods,.build,vendor
 
 # options
 --swiftversion 5.9
@@ -7,7 +7,7 @@
 --importgrouping testable-bottom # sortedImports
 --commas always # trailingCommas
 --trimwhitespace always # trailingSpace
---indent 2 #indent
+--indent 4 #indent
 --ifdef no-indent #indent
 --indentstrings true #indent
 --wraparguments before-first # wrapArguments
