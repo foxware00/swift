@@ -19,6 +19,7 @@ excluded:
   - Carthage
   - Pods
   - .build
+  - vendor
 
 colon:
   apply_to_dictionaries: false
