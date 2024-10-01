@@ -42,8 +42,8 @@ let package = Package(
 
     .binaryTarget(
       name: "swiftformat",
-      url: "https://github.com/calda/SwiftFormat/releases/download/0.55-beta-6/SwiftFormat.artifactbundle.zip",
-      checksum: "c4faeb1068eece2b644192afc1a35a82a81935794034d2efaa3f44ddd8a4b8d4"),
+      url: "https://github.com/calda/SwiftFormat/releases/download/0.55-beta-12/SwiftFormat.artifactbundle.zip",
+      checksum: "8783cefc0837416759f81064df7907cc60ddca6d3f8c3b301b123a2193a8585b"),
 
     .binaryTarget(
       name: "SwiftLintBinary",
