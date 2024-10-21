@@ -2,7 +2,8 @@
 --exclude Pods,.build,vendor
 
 # options
---swiftversion 5.10
+--swiftversion 6.0
+--languagemode 5
 --self remove # redundantSelf
 --importgrouping testable-bottom # sortedImports
 --commas always # trailingCommas
@@ -67,6 +68,7 @@
 --rules redundantGet
 --rules redundantFileprivate
 --rules redundantRawValues
+--rules redundantEquatable
 --rules sortImports
 --rules sortDeclarations
 --rules strongifiedSelf
