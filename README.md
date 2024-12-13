@@ -376,7 +376,7 @@ _You can enable the following settings in Xcode by running [this script](resourc
 
   </details>
 
-* <a id='infer-property-types'></a>(<a href='#infer-property-types'>link</a>) **Prefer letting the type of a variable or property be inferred from the right-hand-side value rather than writing the type explicitly on the left-hand side.** [![SwiftFormat: propertyType](https://img.shields.io/badge/SwiftFormat-propertyType-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#propertyType)
+* <a id='infer-property-types'></a>(<a href='#infer-property-types'>link</a>) **Prefer letting the type of a variable or property be inferred from the right-hand-side value rather than writing the type explicitly on the left-hand side.** [![SwiftFormat: propertyTypes](https://img.shields.io/badge/SwiftFormat-propertyTypes-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#propertyTypes)
 
   <details>
 
@@ -1880,7 +1880,7 @@ _You can enable the following settings in Xcode by running [this script](resourc
 
   </details>
 
-* <a id='doc-comments-before-attributes'></a>(<a href='#doc-comments-before-attributes'>link</a>) **Place doc comments for a declaration before any attributes.** [![SwiftFormat: docCommentsBeforeAttributes](https://img.shields.io/badge/SwiftFormat-docCommentsBeforeAttributes-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#docCommentsBeforeAttributes)
+* <a id='doc-comments-before-attributes'></a>(<a href='#doc-comments-before-attributes'>link</a>) **Place doc comments for a declaration before any attributes or modifiers.** [![SwiftFormat: docCommentsBeforeModifiers](https://img.shields.io/badge/SwiftFormat-docCommentsBeforeModifiers-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#docCommentsBeforeModifiers)
 
   <details>
 
@@ -1891,11 +1891,18 @@ _You can enable the following settings in Xcode by running [this script](resourc
   /// A spacecraft with everything you need to explore the universe.
   struct Spaceship { … }
 
+  public
+  /// A spacecraft with everything you need to explore the universe.
+  struct Spaceship { … }
+
   // RIGHT
 
   /// A spacecraft with everything you need to explore the universe.
   @MainActor
   struct Spaceship { … }
+
+  /// A spacecraft with everything you need to explore the universe.
+  public struct Spaceship { … }
   ```
 
   </details>
@@ -3745,6 +3752,35 @@ _You can enable the following settings in Xcode by running [this script](resourc
 
     </details>
 
+* <a id='redundant-environment-key-implementation'></a>(<a href='#redundant-environment-key-implementation'>link</a>) **Prefer using the `@Entry` macro to define properties inside `EnvironmentValues`**. When adding properties to SwiftUI `EnvironemtnValues`, prefer using the compiler-synthesized property implementation when possible. [![SwiftFormat: environmentEntry](https://img.shields.io/badge/SwiftFormat-environmentEntry-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/develop/Rules.md#environmentEntry)
+
+    <details>
+
+    ### Why?
+
+    Manually-implemented environment keys are verbose and it is considered a legacy pattern. `@Entry` was specifically intended to be a replacement considering it was backported to iOS 13.
+
+    ```swift
+    /// WRONG: The `EnvironmentValues` property depends on `IsSelectedEnvironmentKey`
+    struct IsSelectedEnvironmentKey: EnvironmentKey {
+      static var defaultValue: Bool { false }
+    }
+
+    extension EnvironmentValues {
+      var isSelected: Bool {
+       get { self[IsSelectedEnvironmentKey.self] }
+       set { self[IsSelectedEnvironmentKey.self] = newValue }
+      }
+    }
+
+    /// RIGHT: The `EnvironmentValues` property uses the @Entry macro 
+    extension EnvironmentValues {
+      @Entry var isSelected: Bool = false
+    }
+    ```
+
+    </details>
+
 * <a id='void-type'></a>(<a href='#void-type'>link</a>) **Avoid using `()` as a type**. Prefer `Void`.
 
   <details>
@@ -3770,6 +3806,21 @@ _You can enable the following settings in Xcode by running [this script](resourc
   
   // RIGHT
   completion(.success(()))
+  ```
+  </details>
+
+* <a id='count-where'></a>(<a href='#count-where'>link</a>) **Prefer using `count(where: { … })` over `filter { … }.count`**.
+
+  <details>
+
+  Swift 6.0 ([finally!](https://forums.swift.org/t/accepted-again-se-0220-count-where/66659)) added a `count(where:)` method to the standard library. Prefer using the `count(where:)` method over using the `filter(_:)` method followed by a `count` call.
+
+  ```swift
+  // WRONG
+  let planetsWithMoons = planets.filter { !$0.moons.isEmpty }.count
+
+  // RIGHT
+  let planetsWithMoons = planets.count(where: { !$0.moons.isEmpty })
   ```
   </details>
 
@@ -4150,7 +4201,7 @@ _You can enable the following settings in Xcode by running [this script](resourc
 
   </details>
       
-* <a id='unused-private-declaration'></a>(<a href='#unused-private-declaration'>link</a>) **Remove unused private and fileprivate properties, functions, and typealiases** [![SwiftFormat: unusedPrivateDeclaration](https://img.shields.io/badge/SwiftFormat-unusedPrivateDeclaration-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#unusedPrivateDeclaration)
+* <a id='unused-private-declaration'></a>(<a href='#unused-private-declaration'>link</a>) **Remove unused private and fileprivate properties, functions, and typealiases** [![SwiftFormat: unusedPrivateDeclarations](https://img.shields.io/badge/SwiftFormat-unusedPrivateDeclarations-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#unusedPrivateDeclarations)
 
   <details>
 
@@ -4183,7 +4234,7 @@ _You can enable the following settings in Xcode by running [this script](resourc
   
   </details>
   
-* <a id='remove-empty-extensions'></a>(<a href='#remove-empty-extensions'>link</a>) **Remove empty extensions that define no properties, functions, or conformances.** [![SwiftFormat: emptyExtension](https://img.shields.io/badge/SwiftFormat-emptyExtension-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#emptyExtension)
+* <a id='remove-empty-extensions'></a>(<a href='#remove-empty-extensions'>link</a>) **Remove empty extensions that define no properties, functions, or conformances.** [![SwiftFormat: emptyExtensions](https://img.shields.io/badge/SwiftFormat-emptyExtensions-7B0051.svg)](https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md#emptyExtensions)
 
   <details>
 
