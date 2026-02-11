@@ -1,5 +1,5 @@
 # Exclude checkout directories for common package managers
---exclude Pods,.build,vendor
+--exclude Pods,.build,vendor,Modules/*/.build
 
 # options
 --swiftversion 6.0
