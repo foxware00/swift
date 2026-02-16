@@ -12,7 +12,6 @@ excluded:
   - Carthage
   - Pods
   - '**.build'
-  - 'Modules/**/.build'
   - .build
   - vendor
 
