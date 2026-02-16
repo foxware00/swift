@@ -5,7 +5,6 @@ only_rules:
   - legacy_constructor
   - legacy_nsgeometry_functions
   - unused_optional_binding
-  - unowned_variable_capture
   - custom_rules
 
 excluded:
